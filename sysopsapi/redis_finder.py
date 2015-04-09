@@ -197,14 +197,14 @@ class RedisFinder():
                             if self._verbose:
                                 print "(+) RedisFinder.query_range_for_redis_corelist() no redis corelist was returned from range server", range_server
                     except seco.range.RangeException:
-                        self._redis_corelist = None
                         if self._verbose:
                             print "(+) RedisFinder.query_range_for_redis_corelist() range exception returned from range server", range_server
                             print "(+) RedisFinder.query_range_for_redis_corelist() attempting to query the next range server"
-                    if not total_redis_corelist:
-                        # if we get to this point, we were unable to populate
-                        # the redis corelist.  Exit out.
-                        sys.exit(1)
+                if not total_redis_corelist:
+                    # if we get to this point, we were unable to populate
+                    # the redis corelist.  Exit out.
+                    # XXX: purge all sys.exit from libs
+                    sys.exit(1)
 
                 # Now, for each corelist, return a randomized redis server from
                 # that list and append to self._redis_corelist.
